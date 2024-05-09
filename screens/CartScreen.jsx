@@ -142,6 +142,18 @@ const CartScreen = () => {
     );
   };
 
+  const onSubmit = formData => {
+    const newProductId = data.length > 0 ? data[data.length - 1].id + 1 : 1;
+    const newProduct = {
+      id: newProductId,
+      name: formData.title,
+      price: formData.price,
+      quantity: 1,
+    };
+    setData([...data, newProduct]);
+    toggleModal();
+  };
+
   return (
     <React.Fragment>
       <View style={styles.topTab}>
@@ -161,14 +173,18 @@ const CartScreen = () => {
         />
         <View style={styles.bottomTab}>
           <Text style={styles.priceText}>{formatPrice(totalPrice)}</Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={toggleModal}>
             <Text style={styles.buttonText}>
               Mua hàng({selectedItems.length})
             </Text>
           </TouchableOpacity>
         </View>
       </View>
-      <ModalForm visible={isModalVisible} onClose={toggleModal} />
+      <ModalForm
+        visible={isModalVisible}
+        onClose={toggleModal}
+        onSubmit={onSubmit}
+      />
     </React.Fragment>
   );
 };
