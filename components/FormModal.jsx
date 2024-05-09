@@ -19,6 +19,11 @@ const ModalForm = ({visible, onClose, onSubmit, selectedItem}) => {
       setNameText(title);
       setPriceText(price.toString());
       setImageText(image);
+    } else {
+      // Clear input fields when no item is selected
+      setNameText('');
+      setPriceText('');
+      setImageText('');
     }
   }, [selectedItem]);
 
